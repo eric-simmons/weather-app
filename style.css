@@ -1,0 +1,19 @@
+.search-container{
+    flex: auto;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(86, 86, 209);
+    margin:50px;
+    padding:25px;
+}
+
+.display-container{
+    background-color: purple;
+    
+}
+
+.display{
+
+
+    background-color: aqua;
+}
