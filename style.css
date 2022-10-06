@@ -8,7 +8,12 @@
 }
 
 .display-container{
-    background-color: purple;
+    flex: auto;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(86, 86, 209);
+    margin:50px;
+    padding:25px;
     
 }
 
@@ -16,4 +21,10 @@
 
 
     background-color: aqua;
+}
+
+.city-name {
+
+    background-color: blueviolet;
+
 }
