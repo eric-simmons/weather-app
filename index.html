@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,17 +8,24 @@
     <link href="style.css" rel="stylesheet">
     <title>Weather App</title>
 </head>
+
 <body>
     <div class="search-container">
         <h1 class="header">Weather App</h1>
-        <input id ="search" type ="text" placeholder="City Name">
+
+        <form>
+            <input id="search" type="text" placeholder="City Name">
+            <button type="'submit" class="btn">search</button>
+        </form>
+
     </div>
     <div class="display-container">
-        <div class ="display"></div>
+        <div class="display"></div>
 
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
