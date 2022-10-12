@@ -45,7 +45,7 @@ function searchCity(event) {
                     wind: "Wind Speed " + forecast.list[i].wind.speed,
                     humidity: forecast.list[i].main.humidity + "%" + " Humidity",
                     condition: forecast.list[i].weather[0].description,
-                    icon: "http://openweathermap.org/img/wn/" + forecast.list[i].weather[0].icon + "@2x.png",
+                    icon: "https://openweathermap.org/img/wn/" + forecast.list[i].weather[0].icon + "@2x.png",
                 }
 
                 weatherArr.push(weatherObj)
