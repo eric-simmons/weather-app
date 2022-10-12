@@ -20,7 +20,7 @@ function searchCity(event) {
     event.preventDefault()
     var city = searchBar.value
     var APIKey = "fd21f9847f19d386e41cdfe3df89257d"
-    var forecastWeatherURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
+    var forecastWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
     //parse readable stream into JSON
     fetch(forecastWeatherURL)
         .then(function (response) {
