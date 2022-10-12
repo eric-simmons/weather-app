@@ -5,24 +5,28 @@ const date = DateTime.now().toFormat("MMMM dd")
 const currentHour = now.hour
 // 
 
-var weatherArr = []
+
 
 //get elements from html
 var searchBar = document.getElementById('search')
 var container = document.getElementById('container')
+var searchHistory = document.getElementById('search-history')
+var hey = document.getElementById('hey')
 var form = document.querySelector('form')
-var cityNameEl = document.getElementById('city-name')
-var temperatureEl = document.getElementById('temperature')
-var windEl = document.getElementById('wind')
-var humidityEl = document.getElementById('humidity')
-var conditionEl = document.getElementById('condition')
-var dateEl = document.getElementById('date')
-var icon = document.getElementById('weather-icon').src
-var timeEl = document.getElementById('time')
 
-timeEl.textContent = now
+// var cityNameEl = document.getElementById('city-name')
+// var temperatureEl = document.getElementById('temperature')
+// var windEl = document.getElementById('wind')
+// var humidityEl = document.getElementById('humidity')
+// var conditionEl = document.getElementById('condition')
+// var dateEl = document.getElementById('date')
+// //var icon = document.getElementById('weather-icon').src
+// var timeEl = document.getElementById('time')
+
+
 
 function searchCity(event) {
+    
     event.preventDefault()
     var city = searchBar.value
     var APIKey = "fd21f9847f19d386e41cdfe3df89257d"
@@ -40,9 +44,12 @@ function searchCity(event) {
         //retreive data
         .then(function (forecast) {
             //put data into weather obj
+            //clear weather array
+            
+             weatherArr = []
             for (var i = 0; i < 40; i += 8) {
                 var weatherObj = {
-                    date: forecast.list[i].dt,
+                    date: DateTime.fromSeconds(forecast.list[i].dt).toFormat('LLL dd'),
                     city: forecast.city.name,
                     temp: Math.round(((forecast.list[i].main.temp - 273.15) * 9 / 5 + 32)) + "°F",
                     wind: "Wind Speed " + forecast.list[i].wind.speed,
@@ -50,66 +57,92 @@ function searchCity(event) {
                     condition: forecast.list[i].weather[0].description,
                     icon: "http://openweathermap.org/img/wn/" + forecast.list[i].weather[0].icon + "@2x.png",
                 }
+                
                 weatherArr.push(weatherObj)
-
+               
             }
+           
+           
+            var history = document.createElement('button');
+            history.id = 'btn'
+            history.textContent = weatherObj.city
+            searchHistory.appendChild(history)
+
+
+
+            localStorage.setItem(weatherObj.city, JSON.stringify(weatherArr))
+            container.innerHTML = ''
+            displayForecast()
             
-            for (var j = 0; j < weatherArr.length; j++) {
-                document.body.append(Object.assign(document.createElement
-                    ('div'),
-                    {
-                        textContent: weatherArr[j].temp,
-                        id: "city-name",
-                        class: "city-name flex-grow-1"
-                    }))
-            }
-
-
-
-
-
-
-
-
-
-
-            cityNameEl.textContent = weatherArr[0].city
-            dateEl.textContent = DateTime.fromSeconds(weatherArr[0].date).toFormat('LLL dd')
-            temperatureEl.textContent = weatherArr[0].temp
-            windEl.textContent = weatherArr[0].wind
-            humidityEl.textContent = weatherArr[0].humidity
-            conditionEl.textContent = weatherArr[0].condition
-            document.getElementById('weather-icon').src = weatherArr[0].icon
             console.log(weatherArr)
             console.log(forecast)
         })
-
-
-
-
-
-
-
-
 }
 
 
 
+function displayForecast(){
 
 
+    for (var j = 0; j < weatherArr.length; j++) {
 
+        var section = document.createElement('section');
+        section.id = 'container'
+        section.textContent = 'testing'
+        container.appendChild(section)
 
+        var card = document.createElement('card');
+        card.id = 'cardBody'
+        card.textContent = "this is a card"
+        section.appendChild(card)
 
+        var cityDiv = document.createElement('cityDiv');
+        cityDiv.id = 'cityDiv'
+        cityDiv.textContent = weatherArr[j].city
+        cityDiv.style = 'background-color: green'
+        card.appendChild(cityDiv)
 
+        var dateDiv = document.createElement('dateDiv');
+        dateDiv.id = 'dateDiv'
+        dateDiv.textContent = weatherArr[j].date
+        dateDiv.style = 'background-color: red'
+        card.appendChild(dateDiv)
 
+        var tempDiv = document.createElement('tempDiv');
+        tempDiv.id = 'tempDiv'
+        tempDiv.textContent = weatherArr[j].temp
+        tempDiv.style = 'background-color: blue'
+        card.appendChild(tempDiv)
 
+        var windDiv = document.createElement('windDiv');
+        windDiv.id = 'windDiv'
+        windDiv.textContent = weatherArr[j].wind
+        windDiv.style = 'background-color: yellow'
+        card.appendChild(windDiv)
 
+        var humidityDiv = document.createElement('humidityDiv');
+        humidityDiv.id = 'humidityDiv'
+        humidityDiv.textContent = weatherArr[j].humidity
+        humidityDiv.style = 'background-color: white'
+        card.appendChild(humidityDiv)
 
+        var conditionDiv = document.createElement('conditionDiv');
+        conditionDiv.id = 'conditionDiv'
+        conditionDiv.textContent = weatherArr[j].condition
+        conditionDiv.style = 'background-color: purple'
+        card.appendChild(conditionDiv)
 
+        var iconDiv = document.createElement('img');
+        iconDiv.id = 'iconDiv'
+        iconDiv.src = weatherArr[j].icon
+        card.appendChild(iconDiv) 
+    }
+    }
 
+function clearPage(){
+    
 
-
-
+}
 
 
 form.addEventListener('submit', searchCity)
