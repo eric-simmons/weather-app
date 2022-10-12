@@ -15,10 +15,9 @@ var hey = document.getElementById('hey')
 var form = document.querySelector('form')
 buttonsArr = []
 
-function searchCity(event) {
+function searchCity(city) {
 
-    event.preventDefault()
-    var city = searchBar.value
+
     var APIKey = "fd21f9847f19d386e41cdfe3df89257d"
     var forecastWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + APIKey;
     //parse readable stream into JSON
@@ -52,21 +51,15 @@ function searchCity(event) {
 
             }
 
+            renderCityBtn(city);
+            // console.log(buttonsArr)
+            // for (var k = 0; k < buttonsArr.length; k++){
+            //             buttonsArr[k].addEventListener('click', recall)
+            // }
 
-            var btn = document.createElement('button');
-            btn.id = weatherObj.city + 'btn'
-            btn.textContent = weatherObj.city
-            buttonsArr.push(btn)
-            searchHistory.appendChild(btn)
-
-console.log(buttonsArr)
-for (k = 0; k < buttonsArr.length; k++){
-            buttonsArr[k].addEventListener('click', recall)
-}
-
-            function recall() {
-                console.log('clicked')
-            }
+            //             function recall() {
+            //                 console.log('clicked')
+            //             }
 
 
 
@@ -83,6 +76,26 @@ for (k = 0; k < buttonsArr.length; k++){
         })
 }
 
+function handleSubmit(event) {
+    event.preventDefault()
+    var city = searchBar.value
+    searchCity(city)
+
+}
+
+function handleClick(event) {
+    var city = event.target.textContent
+    searchCity(city)
+}
+
+function renderCityBtn(city) {
+    //if button with city name already exists clear that button
+    var btn = document.createElement('button');
+    btn.id = city
+    btn.textContent = city
+    btn.addEventListener('click', handleClick)
+    searchHistory.appendChild(btn)
+}
 
 
 function displayForecast() {
@@ -146,4 +159,4 @@ function displayForecast() {
 
 
 
-form.addEventListener('submit', searchCity)
+form.addEventListener('submit', handleSubmit)
